@@ -1,41 +1,36 @@
-const assert = require('assert');
-const mongoDb = require('mongodb');
-const MongoClient = mongoDb.MongoClient;
-const MongoObjectId = mongoDb.ObjectID;
+const mongoDb = require("mongodb")
+const MongoClient = mongoDb.MongoClient
+const MongoObjectId = mongoDb.ObjectID
 
-function getDbName() {
-	return "blogapp";
+function getDbName () {
+    return "blogapp"
 }
 
 module.exports = {
-	clientConnect: async() => (
-		client = await(
-			() => (
-				new Promise(
-					(resolve, reject) => (
-						MongoClient.connect('mongodb://localhost:27017/' + getDbName(), {}, (err, client) => {
-							if (err !== null) {
-								reject(err);
-							}
+    clientConnect: function () {
+        return new Promise(
+            (resolve, reject) => (
+                MongoClient.connect("mongodb://localhost:27017/" + getDbName(), {}, (err, client) => {
+                    if (err !== null) {
+                        reject(err)
+                    }
 
-							resolve(client);
-						})
-					)
-				)
-			)
-		)()
-	),
+                    resolve(client)
+                })
+            )
+        )
+    },
 
-	clientClose: async(client) => {
-		client.close();
-		return true;
-	},
+    clientClose: async (client) => {
+        client.close()
+        return true
+    },
 
-	getDbName: function() {
-		return getDbName();
-	},
+    getDbName: function () {
+        return getDbName()
+    },
 
-	generateObjectId: function(objectId) {
-		return new MongoObjectId(objectId);
-	}
+    generateObjectId: function (objectId) {
+        return new MongoObjectId(objectId)
+    }
 }
